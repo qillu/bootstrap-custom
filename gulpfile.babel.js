@@ -3,7 +3,7 @@
 import gulp from 'gulp';
 import less from 'gulp-less';
 import gutil from 'gulp-util';
-import minifyCSS from 'gulp-minify-css';
+import cssnano from 'gulp-cssnano';
 import rename from 'gulp-rename';
 import runSequence from 'run-sequence';
 import path from 'path';
@@ -36,14 +36,17 @@ gulp.task('less', () => {
                         .pipe(less({
                           paths: [ path.join(__dirname, 'less', 'includes') ]
                         }))
-                        .pipe(gulp.dest(paths.dist))
                         .pipe(rename({
-                            suffix: "-min",
+                            prefix: "bootstrap-custom-",
                             extname: ".css"
                         }))
-
-
-                        .pipe(gulp.dest(paths.dist))
+                        .pipe(gulp.dest(paths.dist + 'css/'))
+                        .pipe(cssnano())
+                        .pipe(rename({
+                            suffix: ".min",
+                            extname: ".css"
+                        }))
+                        .pipe(gulp.dest(paths.dist + 'css/'))
     count++;
   }
 
