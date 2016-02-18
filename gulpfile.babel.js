@@ -13,7 +13,7 @@ import merge from 'merge-stream';
 var paths = {
   dist: './dist/',
   fonts: './fonts/*',
-  less: ['./less/bootstrap.less','./less/theme.less']
+  less: ['./less/bootstrap.less']
 };
 
 gulp.task('clean', () => {
@@ -35,10 +35,6 @@ gulp.task('less', () => {
     lessFiles[count] = gulp.src(lessFiles[f])
                         .pipe(less({
                           paths: [ path.join(__dirname, 'less', 'includes') ]
-                        }))
-                        .pipe(rename({
-                            prefix: "bootstrap-custom-",
-                            extname: ".css"
                         }))
                         .pipe(gulp.dest(paths.dist + 'css/'))
                         .pipe(cssnano())
